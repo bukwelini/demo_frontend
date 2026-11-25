@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Notes</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <div>
+          <p class="eyebrow">Mini Notes</p>
+          <h1>Your notes, all in one place</h1>
+          <p class="subtitle">Add, edit, and delete notes. Everything is saved in a SQLite database.</p>
+        </div>
+        <span id="noteCount" class="count" aria-live="polite">0 notes</span>
+      </header>
+
+      <section class="editor" aria-labelledby="editorTitle">
+        <h2 id="editorTitle">Note editor</h2>
+        <form id="noteForm" novalidate>
+          <div class="field">
+            <label for="title">Title</label>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              maxlength="80"
+              placeholder="e.g. Groceries"
+              autocomplete="off"
+              required
+              aria-describedby="titleError"
+            />
+            <p id="titleError" class="error" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__label-row">
+              <label for="content">Note</label>
+              <span id="charCount" class="char-count">0/1000</span>
+            </div>
+            <textarea
+              id="content"
+              name="content"
+              rows="5"
+              maxlength="1000"
+              placeholder="Write your note..."
+              required
+              aria-describedby="contentError"
+            ></textarea>
+            <p id="contentError" class="error" role="alert"></p>
+          </div>
+
+          <div class="actions">
+            <button id="submitButton" class="btn btn--primary" type="submit">Add note</button>
+            <button id="cancelButton" class="btn btn--ghost" type="button" hidden>Cancel</button>
+          </div>
+          <p id="statusMessage" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="notes-section" aria-labelledby="notesTitle">
+        <div class="notes-section__header">
+          <h2 id="notesTitle">Notes</h2>
+          <label class="search">
+            <span class="sr-only">Search notes</span>
+            <input id="searchInput" type="search" placeholder="Search notes..." autocomplete="off" />
+          </label>
+        </div>
+
+        <div id="notesList" class="notes-grid" aria-live="polite"></div>
+
+        <div id="emptyState" class="empty" hidden>
+          <h3 id="emptyTitle">No notes yet</h3>
+          <p id="emptyMessage">Add your first note using the form above.</p>
+        </div>
+      </section>
+    </main>
+
+    <template id="noteTemplate">
+      <article class="note">
+        <div class="note__header">
+          <h3 class="note__title"></h3>
+          <time class="note__date"></time>
+        </div>
+        <p class="note__content"></p>
+        <div class="note__actions">
+          <button class="btn btn--small btn--secondary" type="button" data-action="edit">Edit</button>
+          <button class="btn btn--small btn--danger" type="button" data-action="delete">Delete</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
